@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-v1.0.0
+  labels:
+    name: nginx
+    instance: testing
+    track: v1
+    version: 1.0.0
+spec:
+  selector:
+    matchLabels:
+      name: nginx
+      instance: testing
+      track: v1
+      version: 1.0.0
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "true"
+      labels:
+        name: nginx
+        instance: testing
+        track: v1
+        version: 1.0.0
+    spec:
+      containers:
+      - name: nginx
+        image: mehulnved/nginx:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-v2.0.0
+  labels:
+    name: nginx
+    instance: testing
+    track: v2
+    version: 2.0.0
+spec:
+  selector:
+    matchLabels:
+      name: nginx
+      instance: testing
+      track: v2
+      version: 2.0.0
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "true"
+      labels:
+        name: nginx
+        instance: testing
+        track: v2
+        version: 2.0.0
+    spec:
+      containers:
+      - name: nginx
+        image: mehulnved/nginx:v2
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
