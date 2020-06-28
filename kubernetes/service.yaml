@@ -4,6 +4,9 @@ metadata:
   name: nginx
   labels:
     name: nginx
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9113"
 spec:
   type: ClusterIP
   ports:
