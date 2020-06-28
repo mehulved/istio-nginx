@@ -30,6 +30,14 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 80
+      - name: nginx-prometheus-exporter
+        image: nginx/nginx-prometheus-exporter:0.8.0
+        args:
+        - '-nginx.scrape-uri'
+        - 'http://nginx/metrics'
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9113
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -65,3 +73,11 @@ spec:
         - name: http
           containerPort: 80
           protocol: TCP
+      - name: nginx-prometheus-exporter
+        image: nginx/nginx-prometheus-exporter:0.8.0
+        args:
+        - '-nginx.scrape-uri'
+        - 'http://nginx/metrics'
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9113
