@@ -1,32 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-v1.0.0
+  name: nginx
   labels:
     name: nginx
-    instance: testing
-    track: v1
-    version: 1.0.0
 spec:
   selector:
     matchLabels:
       name: nginx
-      instance: testing
-      track: v1
-      version: 1.0.0
   template:
     metadata:
       annotations:
         sidecar.istio.io/inject: "true"
       labels:
         name: nginx
-        instance: testing
-        track: v1
-        version: 1.0.0
     spec:
       containers:
       - name: nginx
-        image: mehulnved/nginx:v1
+        image: mehulnved/nginx:v3
         imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -42,42 +33,21 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-v2.0.0
+  name: nodejs
   labels:
-    name: nginx
-    instance: testing
-    track: v2
-    version: 2.0.0
+    name: nodejs
 spec:
   selector:
     matchLabels:
-      name: nginx
-      instance: testing
-      track: v2
-      version: 2.0.0
+      name: nodejs
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "true"
       labels:
-        name: nginx
-        instance: testing
-        track: v2
-        version: 2.0.0
+        name: nodejs
     spec:
       containers:
-      - name: nginx
-        image: mehulnved/nginx:v2
+      - name: nodejs
+        image: mehulnved/node:v2
         imagePullPolicy: Always
         ports:
-        - name: http
-          containerPort: 80
-          protocol: TCP
-      - name: nginx-prometheus-exporter
-        image: nginx/nginx-prometheus-exporter:0.8.0
-        args:
-        - '-nginx.scrape-uri'
-        - 'http://nginx/metrics'
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 9113
+        - containerPort: 8000
