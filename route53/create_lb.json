@@ -1,0 +1,18 @@
+{
+  "Changes": [
+    {
+      "Action": "CREATE",
+      "ResourceRecordSet": {
+        "Name": "lb.istio.mehulved.com",
+        "Type": "A",
+	"SetIdentifier": "Load Balancer 1",
+	"Weight": 10,
+        "AliasTarget": {
+            "HostedZoneId": "Z35SXDOTRQ7X7K",
+	    "DNSName": "",
+            "EvaluateTargetHealth": true
+	}
+      }
+    }
+  ]
+}
